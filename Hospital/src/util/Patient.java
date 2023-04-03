@@ -8,6 +8,6 @@ package util;
  *
  * @author WildW
  */
-public class Patients {
+public class Patient {
     
 }
