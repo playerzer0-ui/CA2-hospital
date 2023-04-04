@@ -1,10 +1,12 @@
 package util;
 
+import java.util.NoSuchElementException;
+
 public class LinkedList {
 
-    private Node first;
-    private Node last;
-    private int size;
+    protected Node first;
+    protected Node last;
+    protected int size;
 
     public LinkedList(){
         size = 0;
@@ -13,11 +15,11 @@ public class LinkedList {
     }
 
     /**
-     * gets the position of the patient
-     * @param value the patient to find
-     * @return the position
+     * gets the position of the appointment
+     * @param value the appointment to find
+     * @return the position / -1 if not found
      */
-    public int indexOf(Patient value){
+    public int indexOf(Appointment value){
         Node current = first;
         int index = 0;
         while(current != null){
@@ -31,11 +33,11 @@ public class LinkedList {
     }
 
     /**
-     * add a patient to the end of the list
-     * @param value the patient
+     * add an appointment to the end of the list
+     * @param value the appointment
      * @return true
      */
-    public boolean add(Patient value){
+    public boolean add(Appointment value){
         Node newNode = new Node(value);
         if(first == null){
             first = newNode;
@@ -50,11 +52,11 @@ public class LinkedList {
 
 
     /**
-     * add a patient to the first of the list
-     * @param value the patient
+     * add an appointment to the first of the list
+     * @param value the appointment
      * @return true
      */
-    public boolean addFirst(Patient value){
+    public boolean addFirst(Appointment value){
         Node newNode = new Node(value);
         newNode.next = first;
         first = newNode;
@@ -63,13 +65,13 @@ public class LinkedList {
 
 
     /**
-     * add a patient to whichever position, as long as it doesn't go
+     * add an appointment to whichever position, as long as it doesn't go
      * out of bounds
-     * @param value the patient
+     * @param value the appointment
      * @param pos the position
      * @return true
      */
-    public boolean add(Patient value, int pos){
+    public boolean add(Appointment value, int pos){
         Node newNode = new Node(value);
         if(first == null){
             first = newNode;
@@ -107,12 +109,12 @@ public class LinkedList {
     }
 
     /**
-     * gets a patient from a specified position
+     * gets an appointment from a specified position
      * @param pos the position
-     * @return the patient
+     * @return the appointment
      * @throws IndexOutOfBoundsException if out of range
      */
-    public Patient get(int pos){
+    public Appointment get(int pos){
         if(pos < 0 || pos >= size){
             throw new IndexOutOfBoundsException("index out of range");
         }
@@ -129,15 +131,15 @@ public class LinkedList {
     }
 
     /**
-     * remove a patient from a list
-     * @param value the patient
+     * remove an appointment from a list
+     * @param value the appointment
      * @return true or false, if removed or not
      */
-    public boolean remove(Patient value){
+    public boolean remove(Appointment value){
         boolean flag = false;
         Node current = first;
-        if(size == 0){
-            return false;
+        if(isEmpty()){
+            throw new NoSuchElementException();
         }
         if(first.data.equals(value)){
             first = current.next;
@@ -157,6 +159,42 @@ public class LinkedList {
     }
 
     /**
+     * remove an appointment from a list
+     * @param pos the position
+     * @return true or false, if removed or not
+     */
+    public boolean remove(int pos){
+        int index = 0;
+        Node current = first;
+        if(isEmpty()){
+            throw new NoSuchElementException();
+        }
+        if(pos == 0){
+            first = current.next;
+            return true;
+        }
+        while(current.next != null){
+            if(index == pos){ //check if the next data is the value
+                current.next = current.next.next;
+                size--;
+                break;
+            }
+            current = current.next;
+            index++;
+        }
+        return true;
+    }
+
+    /**
+     * clear the list
+     */
+    public void clear(){
+        first = null;
+        last = null;
+        size = 0;
+    }
+
+    /**
      * @return the string of list
      */
     @Override
@@ -171,11 +209,11 @@ public class LinkedList {
         return output;
     }
 
-    private static class Node {
-        private Patient data;
-        private Node next;
+    protected static class Node {
+        protected Appointment data;
+        protected Node next;
 
-        public Node(Patient data){
+        public Node(Appointment data){
             this.data = data;
             next = null;
         }
