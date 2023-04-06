@@ -72,6 +72,9 @@ public class LinkedList {
      * @return true
      */
     public boolean add(Appointment value, int pos){
+        if(pos < 0 || pos >= size){
+            throw new IndexOutOfBoundsException();
+        }
         Node newNode = new Node(value);
         if(first == null){
             first = newNode;
@@ -141,7 +144,7 @@ public class LinkedList {
         if(isEmpty()){
             throw new NoSuchElementException();
         }
-        if(first.data.equals(value)){
+        if(value.equals(first.data)){
             first = current.next;
         }
         while(current.next != null){
@@ -168,6 +171,9 @@ public class LinkedList {
         Node current = first;
         if(isEmpty()){
             throw new NoSuchElementException();
+        }
+        if(pos < 0 || pos >= size){
+            throw new IndexOutOfBoundsException();
         }
         if(pos == 0){
             first = current.next;
