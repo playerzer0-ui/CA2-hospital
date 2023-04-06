@@ -76,18 +76,35 @@ public class PriorityQueue extends LinkedList{
 
     ////////////unsupported operations/////////////////////////////
 
+    /**
+     * unsupported operation
+     */
     @Override
     public int indexOf(Appointment value) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * unsupported operation
+     */
     @Override
     public boolean add(Appointment value, int pos) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * unsupported operation
+     */
     @Override
     public boolean remove(Appointment value) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * unsupported operation
+     */
+    @Override
+    public Appointment get(int pos){
         throw new UnsupportedOperationException();
     }
 }

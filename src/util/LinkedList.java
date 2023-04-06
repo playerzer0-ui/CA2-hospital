@@ -177,6 +177,7 @@ public class LinkedList {
         }
         if(pos == 0){
             first = current.next;
+            size--;
             return true;
         }
         while(current.next != null){
@@ -205,6 +206,9 @@ public class LinkedList {
      */
     @Override
     public String toString() {
+        if(isEmpty()){
+            return "[]";
+        }
         String output = "[";
         Node current = first;
         while(current.next != null){
