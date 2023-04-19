@@ -102,6 +102,34 @@ public class LinkedList {
         return size == 0;
     }
 
+    /**
+     * set the appointment based on position
+     * @param pos the position
+     * @param value the appointment to change
+     * @return true
+     */
+    public boolean set(int pos, Appointment value){
+        if(pos < 0 || pos >= size){
+            throw new IndexOutOfBoundsException("index out of range");
+        }
+        if(pos == 0){
+            first.data = value;
+        }
+        else if(pos == size - 1){
+            last.data = value;
+        }
+        else{
+            Node current = first.next;
+            int index = 1;
+            while(index != pos){
+                current = current.next;
+                index++;
+            }
+            current.data = value;
+        }
+        return true;
+    }
+
 
     /**
      * get the size of list

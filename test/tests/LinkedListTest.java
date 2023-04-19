@@ -277,4 +277,59 @@ class LinkedListTest {
         int act = l.size();
         assertEquals(exp, act);
     }
+
+    /**
+     * set method, normal scenario
+     */
+    @Test
+    public void set_normal(){
+        LinkedList l = new LinkedList();
+        l.add(new Appointment());
+        l.add(new Appointment());
+        l.add(new Appointment());
+
+        l.set(1, a);
+        assertEquals(a, l.get(1));
+    }
+
+    /**
+     * set method, first position
+     */
+    @Test
+    public void set_zero(){
+        LinkedList l = new LinkedList();
+        l.add(new Appointment());
+        l.add(new Appointment());
+        l.add(new Appointment());
+
+        l.set(0, a);
+        assertEquals(a, l.get(0));
+    }
+
+    /**
+     * set method, last position
+     */
+    @Test
+    public void set_last(){
+        LinkedList l = new LinkedList();
+        l.add(new Appointment());
+        l.add(new Appointment());
+        l.add(new Appointment());
+
+        l.set(l.size() - 1, a);
+        assertEquals(a, l.get(l.size() - 1));
+    }
+
+    /**
+     * set method, invalid position
+     */
+    @Test
+    public void set_invalid(){
+        LinkedList l = new LinkedList();
+        l.add(new Appointment());
+        l.add(new Appointment());
+        l.add(new Appointment());
+
+        assertThrows(IndexOutOfBoundsException.class, ()->{l.set(10000, a);});
+    }
 }
