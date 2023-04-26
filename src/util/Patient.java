@@ -5,6 +5,7 @@
 package util;
 
 import java.time.LocalDate;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
@@ -12,18 +13,24 @@ import java.util.Objects;
  * @author WildW
  */
 public class Patient {
+//    • The first name of the Patient (a String)
+//• The second name of the Patient (a String)
+//• The date of birth of the Patient (a LocalDate)
+//• The date they joined the practice (a LocalDate)
+//• The appointments associated with the Patient (an Appointment LinkedList).
 
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
-    private LocalDate joinedDay;
-    //The appointments associated with the Patient (an Appointment LinkedList)
+    private LocalDate birthDate;
+    private LocalDate joinDate;
+    private LinkedList appointments;
 
-    public Patient(String firstName, String lastName, LocalDate dateOfBirth, LocalDate joinedDay) {
+    public Patient(String firstName, String lastName, LocalDate birthDate, LocalDate joinDate) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.joinedDay = joinedDay;
+        this.birthDate = birthDate;
+        this.joinDate = joinDate;
+        this.appointments = new LinkedList();
     }
 
     public Patient() {
@@ -45,32 +52,36 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public LocalDate getJoinedDay() {
-        return joinedDay;
+    public LocalDate getJoinDate() {
+        return joinDate;
     }
 
-    public void setJoinedDay(LocalDate joinedDay) {
-        this.joinedDay = joinedDay;
+    public void setJoinDate(LocalDate joinDate) {
+        this.joinDate = joinDate;
     }
-    
 
-    
-    
-    
+    public LinkedList getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(LinkedList appointments) {
+        this.appointments = appointments;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.firstName);
-        hash = 53 * hash + Objects.hashCode(this.lastName);
-        hash = 53 * hash + Objects.hashCode(this.dateOfBirth);
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.firstName);
+        hash = 79 * hash + Objects.hashCode(this.lastName);
+        hash = 79 * hash + Objects.hashCode(this.birthDate);
         return hash;
     }
 
@@ -92,7 +103,7 @@ public class Patient {
         if (!Objects.equals(this.lastName, other.lastName)) {
             return false;
         }
-        return Objects.equals(this.dateOfBirth, other.dateOfBirth);
+        return Objects.equals(this.birthDate, other.birthDate);
     }
     
     
