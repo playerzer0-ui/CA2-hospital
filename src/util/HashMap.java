@@ -30,6 +30,10 @@ public class HashMap {
         table = new LinkedList[capacity];
     }
 
+    public int size() {
+        return size;
+    }
+
     private int hash(String key) {
         int hash = key.hashCode();
         hash = Math.abs(hash);
@@ -95,6 +99,44 @@ public class HashMap {
         } else {
             return null;
         }
+    }
+
+    public boolean containsKey(String key) {
+        int slot = hash(key);
+        if (table[slot] != null) {
+            for (Entry e : table[slot]) {
+                if (e.key.equals(key)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public String[] getKeys() {
+        String[] keys = new String[size];
+        int index = 0;
+        for (LinkedList<Entry> list : table) {
+            if (list != null) {
+                for (Entry e : list) {
+                    keys[index++] = e.key;
+                }
+            }
+        }
+        return keys;
+    }
+
+    public Patient[] getValues() {
+        Patient[] values = new Patient[size];
+        int index = 0;
+        for (LinkedList<Entry> list : table) {
+            if (list != null) {
+                for (Entry e : list) {
+                    values[index++] = e.value;
+                }
+            }
+        }
+        return values;
     }
 
     private static class Entry {
