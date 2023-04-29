@@ -138,6 +138,24 @@ public class HashMap {
         }
         return values;
     }
+    
+    @Override
+public String toString() {
+    String result = "{";
+
+    for (LinkedList<Entry> list : table) {
+        if (list != null) {
+            for (Entry e : list) {
+                result += e.getKey() + "=" + e.getValue() + ", ";
+            }
+        }
+    }
+//ending with comma dont know how to fix
+
+    result += "}";
+    return result;
+}
+    
 
     private static class Entry {
 
@@ -162,5 +180,7 @@ public class HashMap {
             this.value = newValue;
             return oldValue;
         }
+        
+        
     }
 }
