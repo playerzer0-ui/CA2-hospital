@@ -1,75 +1,91 @@
 package main;
 
 import java.time.LocalDate;
-import java.util.Queue;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import util.HashMap;
 import util.Patient;
+import util.PriorityQueue;
 
 public class Program {
-    
-    private static HashMap patients = new HashMap();
-    private static Queue appointments = new Queue();
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        HashMap patients = new HashMap();
+        PriorityQueue queue = new PriorityQueue();
+        Scanner sc = new Scanner(System.in);
         int choice;
+        boolean flag = false;
 
-        do {
-            System.out.println("Choose an option:");
-            System.out.println("1. Add a new patient");
-            System.out.println("2. Delete a patient");
-            System.out.println("3. Display all patients");
-            System.out.println("4. Create a new appointment");
-            System.out.println("5. Call the next patient");
-            System.out.println("6. Exit");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // consume the newline character
 
-            switch (choice) {
+        while(!flag){
+            menu();
+            choice = sc.nextInt();
+
+            switch(choice){
                 case 1:
-                    addPatient(scanner);
+                    if(addPatient(patients)){
+                        System.out.println("patient added successfully!");
+                    }
+                    else{
+                        System.out.println("patient failed to be added");
+                    }
                     break;
                 case 2:
-                    deletePatient(scanner);
                     break;
                 case 3:
-                    displayPatients();
+                    System.out.println(patients);
                     break;
                 case 4:
-                    createAppointment(scanner);
                     break;
                 case 5:
-                    callNextPatient();
                     break;
                 case 6:
-                    System.out.println("Goodbye!");
+                    flag = true;
                     break;
                 default:
-                    System.out.println("Invalid choice, please try again.");
+                    System.out.println("invalid command");
                     break;
             }
-
-            System.out.println();
-
-        } while (choice != 6);
-
-        scanner.close();
-    }
-    
-    
-     private static void addPatient(Scanner scanner) {
-        System.out.println("Enter patient details:");
-        System.out.print("First name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("Last name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("Date of birth (DD/MM/YYYY): ");
-        LocalDate dob = scanner.next();
-
-        Patient patient = new Patient(firstName, lastName, dob);
+        }
 
     }
+
+    public static void menu(){
+        System.out.println("Hospital menu-------------:");
+        System.out.println("1. Add a new patient");
+        System.out.println("2. Delete a patient");
+        System.out.println("3. Display all patients");
+        System.out.println("4. Create a new appointment");
+        System.out.println("5. Call the next patient");
+        System.out.println("6. Exit");
+        System.out.println("Choose an option:");
+    }
+    
+     private static boolean addPatient(HashMap patients) {
+         LocalDate dob;
+         LocalDate join;
+         Scanner sc = new Scanner(System.in);
+         System.out.println("Enter patient details:");
+         System.out.print("First name: ");
+         String firstName = sc.nextLine();
+         System.out.print("Last name: ");
+         String lastName = sc.nextLine();
+
+         try{
+             System.out.print("Date of birth (YYYY-MM-DD): ");
+             dob = LocalDate.parse(sc.nextLine());
+             System.out.println("enter join date (YYYY-MM-DD): ");
+             join = LocalDate.parse(sc.nextLine());
+         }
+         catch(DateTimeParseException e){
+             System.out.println("invalid dates");
+             return false;
+         }
+
+         Patient patient = new Patient(firstName, lastName, dob, join);
+         patients.put(firstName, patient);
+         return true;
+     }
      
      
      
