@@ -3,7 +3,9 @@ package main;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import util.Appointment;
 import util.HashMap;
+import util.LinkedList;
 import util.Patient;
 import util.PriorityQueue;
 
@@ -16,17 +18,15 @@ public class Program {
         int choice;
         boolean flag = false;
 
-
-        while(!flag){
+        while (!flag) {
             menu();
             choice = sc.nextInt();
 
-            switch(choice){
+            switch (choice) {
                 case 1:
-                    if(addPatient(patients)){
+                    if (addPatient(patients)) {
                         System.out.println("patient added successfully!");
-                    }
-                    else{
+                    } else {
                         System.out.println("patient failed to be added");
                     }
                     break;
@@ -50,7 +50,7 @@ public class Program {
 
     }
 
-    public static void menu(){
+    public static void menu() {
         System.out.println("Hospital menu-------------:");
         System.out.println("1. Add a new patient");
         System.out.println("2. Delete a patient");
@@ -60,33 +60,48 @@ public class Program {
         System.out.println("6. Exit");
         System.out.println("Choose an option:");
     }
-    
-     private static boolean addPatient(HashMap patients) {
-         LocalDate dob;
-         LocalDate join;
-         Scanner sc = new Scanner(System.in);
-         System.out.println("Enter patient details:");
-         System.out.print("First name: ");
-         String firstName = sc.nextLine();
-         System.out.print("Last name: ");
-         String lastName = sc.nextLine();
 
-         try{
-             System.out.print("Date of birth (YYYY-MM-DD): ");
-             dob = LocalDate.parse(sc.nextLine());
-             System.out.println("enter join date (YYYY-MM-DD): ");
-             join = LocalDate.parse(sc.nextLine());
-         }
-         catch(DateTimeParseException e){
-             System.out.println("invalid dates");
-             return false;
-         }
+    private static boolean addPatient(HashMap patients) {
+        LocalDate dob;
+        LocalDate join;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter patient details:");
+        System.out.print("First name: ");
+        String firstName = sc.nextLine();
+        System.out.print("Last name: ");
+        String lastName = sc.nextLine();
 
-         Patient patient = new Patient(firstName, lastName, dob, join);
-         patients.put(firstName, patient);
-         return true;
-     }
-     
-     
-     
+        try {
+            System.out.print("Date of birth (YYYY-MM-DD): ");
+            dob = LocalDate.parse(sc.nextLine());
+            System.out.println("enter join date (YYYY-MM-DD): ");
+            join = LocalDate.parse(sc.nextLine());
+        } catch (DateTimeParseException e) {
+            System.out.println("invalid dates");
+            return false;
+        }
+        Patient patient = new Patient(firstName, lastName, dob, join);
+        patients.put(firstName, patient);
+        return true;
+    }
+
+    public boolean deletePatient(String firstName, String lastName, HashMap patients) {
+        String key = firstName + " " + lastName;
+        if (patients.containsKey(key)) {
+            patients.remove(key);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void displayAllPatients(HashMap patients) {
+
+        String[] keys = patients.getKeys();
+        for (String key : keys) {
+            Patient patient = patients.get(key);
+            System.out.println(patient);
+        }
+    }
+
 }

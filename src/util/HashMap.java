@@ -48,21 +48,20 @@ public class HashMap {
         int slot = hash(key);
 
         if (table[slot] == null) {
-            // If it's a new entry to an empty slot
+            //n
             table[slot] = new LinkedList();
             Entry newEntry = new Entry(key, patient);
             table[slot].add(newEntry);
             size++;
             return null;
         } else {
-            // If it's an update
+            //u
             for (Entry e : table[slot]) {
                 if (e.key.equals(key)) {
                     Patient oldValue = e.updateValue(patient);
                     return oldValue;
                 }
             }
-            // Add collision
             Entry newEntry = new Entry(key, patient);
             table[slot].add(newEntry);
             size++;
@@ -138,24 +137,23 @@ public class HashMap {
         }
         return values;
     }
-    
-    @Override
-public String toString() {
-    String result = "{";
 
-    for (LinkedList<Entry> list : table) {
-        if (list != null) {
-            for (Entry e : list) {
-                result += e.getKey() + "=" + e.getValue() + ", ";
+    @Override
+    public String toString() {
+        String result = "{";
+
+        for (LinkedList<Entry> list : table) {
+            if (list != null) {
+                for (Entry e : list) {
+                    result += e.getKey() + "=" + e.getValue() + ", ";
+                }
             }
         }
-    }
 //ending with comma dont know how to fix
 
-    result += "}";
-    return result;
-}
-    
+        result += "}";
+        return result;
+    }
 
     private static class Entry {
 
@@ -180,7 +178,6 @@ public String toString() {
             this.value = newValue;
             return oldValue;
         }
-        
-        
+
     }
 }
