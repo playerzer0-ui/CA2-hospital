@@ -2,10 +2,10 @@ package main;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Random;
 import java.util.Scanner;
 import util.Appointment;
 import util.HashMap;
-import util.LinkedList;
 import util.Patient;
 import util.PriorityQueue;
 
@@ -31,15 +31,36 @@ public class Program {
                     }
                     break;
                 case 2:
+                    if (deletePatient(patients)) {
+                        System.out.println("patient removed successfully!");
+                    } else {
+                        System.out.println("patient failed to be removed");
+                    }
                     break;
                 case 3:
                     System.out.println(patients);
                     break;
                 case 4:
+                    if (newAppointment(patients, queue)) {
+                        System.out.println("appointment added successfully!");
+                    } else {
+                        System.out.println("appointment failed to create");
+                    }
                     break;
                 case 5:
+                    Appointment next = queue.peek();
+                    if(next != null){
+                        System.out.println("calling next patient: " + next.getFirstName() + " " + next.getLastName());
+                        queue.remove();
+                    }
+                    else{
+                        System.out.println("no patients to call in");
+                    }
                     break;
                 case 6:
+                    System.out.println(queue);
+                    break;
+                case 7:
                     flag = true;
                     break;
                 default:
@@ -50,6 +71,9 @@ public class Program {
 
     }
 
+    /**
+     * display menu
+     */
     public static void menu() {
         System.out.println("Hospital menu-------------:");
         System.out.println("1. Add a new patient");
@@ -57,10 +81,16 @@ public class Program {
         System.out.println("3. Display all patients");
         System.out.println("4. Create a new appointment");
         System.out.println("5. Call the next patient");
-        System.out.println("6. Exit");
+        System.out.println("6. Display appointment queue");
+        System.out.println("7. Exit");
         System.out.println("Choose an option:");
     }
 
+    /**
+     * add a patient to the hashmap
+     * @param patients the hashmap of patients
+     * @return true or false, if added or not
+     */
     private static boolean addPatient(HashMap patients) {
         LocalDate dob;
         LocalDate join;
@@ -85,22 +115,51 @@ public class Program {
         return true;
     }
 
-    public boolean deletePatient(String firstName, String lastName, HashMap patients) {
-        String key = firstName + " " + lastName;
-        if (patients.containsKey(key)) {
-            patients.remove(key);
+    /**
+     * remove a patient from the hashmap
+     * @param patients the hashmap of patients
+     * @return true or false, if added or not
+     */
+    public static boolean deletePatient(HashMap patients) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter the patients first name: ");
+        String firstName = sc.nextLine();
+
+        if (patients.containsKey(firstName)) {
+            patients.remove(firstName);
             return true;
         } else {
             return false;
         }
     }
 
-    public void displayAllPatients(HashMap patients) {
+    /**
+     * add a new appointment to the queue, patient is found in queue
+     * @param patients the hashmap of patients
+     * @param queue the queue of appointments
+     * @return true or false, if added or not
+     */
+    public static boolean newAppointment(HashMap patients, PriorityQueue queue){
+        Scanner sc = new Scanner(System.in);
+        Random rg = new Random();
 
-        String[] keys = patients.getKeys();
-        for (String key : keys) {
-            Patient patient = patients.get(key);
-            System.out.println(patient);
+        System.out.println("enter the patient first name: ");
+        String firstName = sc.nextLine();
+
+        Patient patient = patients.get(firstName);
+        if(patient != null){
+            System.out.println("what is the issue: ");
+            String issue = sc.nextLine();
+            System.out.println("enter doctor name: ");
+            String doctor = sc.nextLine();
+
+            queue.add(new Appointment(rg.nextInt(1, 6),
+                    patient.getFirstName(), patient.getLastName(),
+                    patient.getBirthDate(), issue, patient.getJoinDate(), doctor));
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

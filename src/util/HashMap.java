@@ -141,17 +141,24 @@ public class HashMap {
     @Override
     public String toString() {
         String result = "{";
+        int index = 0;
 
         for (LinkedList<Entry> list : table) {
             if (list != null) {
                 for (Entry e : list) {
-                    result += e.getKey() + "=" + e.getValue() + ", ";
+                    result += e.getKey() + "=" + e.getValue();
+                    index++;
+
+                    if(index != size){
+                        result += ", ";
+                    }
+                    else{
+                        result += "}";
+                    }
                 }
             }
         }
 //ending with comma dont know how to fix
-
-        result += "}";
         return result;
     }
 
