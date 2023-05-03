@@ -50,7 +50,7 @@ public class Program {
                         }
                         break;
                     case 3:
-                        System.out.println(patients);
+                        displayAllPatients(patients);
                         break;
                     case 4:
                         if (newAppointment(patients, queue)) {
@@ -169,7 +169,7 @@ public class Program {
      * @param patients the hashmap of patients
      * @return all the patient
      */
-    public void displayAllPatients(HashMap patients) {
+    public static void displayAllPatients(HashMap patients) {
         String[] keys = patients.getKeys();
         for (String key : keys) {
             Patient patient = patients.get(key);
