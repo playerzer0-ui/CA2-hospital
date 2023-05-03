@@ -18,22 +18,37 @@ public class HashMap implements Serializable {
     private int size;
     private LinkedList<Entry>[] table;
 
+    /**
+     * Constructs a HashMap with the default capacity.
+     */
     public HashMap() {
         capacity = DEFAULT_CAPACITY;
         size = 0;
         table = new LinkedList[capacity];
     }
 
+    /**
+     * Constructs a HashMap with the input capacity.
+     *
+     * @param capacity the initial capacity of the HashMap
+     */
     public HashMap(int capacity) {
         this.capacity = capacity;
         size = 0;
         table = new LinkedList[capacity];
     }
 
+    /**
+     * @return the size of the HashMap
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * @param key the key
+     * @return the hash code for the key
+     */
     private int hash(String key) {
         int hash = key.hashCode();
         hash = Math.abs(hash);
@@ -174,7 +189,7 @@ public class HashMap implements Serializable {
 
     @Override
     public String toString() {
-        if(size == 0){
+        if (size == 0) {
             return "{}";
         }
         String result = "{";
