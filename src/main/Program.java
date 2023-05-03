@@ -1,5 +1,6 @@
 package main;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Random;
@@ -11,12 +12,23 @@ import util.PriorityQueue;
 
 public class Program {
 
-    public static void main(String[] args) {
-        HashMap patients = new HashMap();
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //read data
+        FileInputStream file = new FileInputStream("data.bin");
+        HashMap patients;
+        try{
+            ObjectInputStream bin = new ObjectInputStream(file);
+            patients = (HashMap) bin.readObject();
+        }
+        catch(EOFException e){
+            patients = new HashMap();
+        }
+
         PriorityQueue queue = new PriorityQueue();
         Scanner sc = new Scanner(System.in);
         int choice;
         boolean flag = false;
+
 
         while (!flag) {
             menu();
@@ -61,6 +73,7 @@ public class Program {
                     System.out.println(queue);
                     break;
                 case 7:
+                    saveData(patients);
                     flag = true;
                     break;
                 default:
@@ -69,6 +82,17 @@ public class Program {
             }
         }
 
+    }
+
+    /**
+     * save data to binary file
+     * @param patients the hashmap of patients
+     * @throws IOException if something went wrong
+     */
+    public static void saveData(HashMap patients) throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("data.bin"));
+        out.writeObject(patients);
+        out.close();
     }
 
     /**

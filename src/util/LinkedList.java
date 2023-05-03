@@ -1,8 +1,9 @@
 package util;
 
+import java.io.Serializable;
 import java.util.NoSuchElementException;
 
-public class LinkedList {
+public class LinkedList implements Serializable {
 
     protected Node first;
     protected Node last;

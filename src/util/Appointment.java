@@ -1,8 +1,9 @@
 package util;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Appointment {
+public class Appointment implements Serializable {
 
     private int level;
     private String firstName;

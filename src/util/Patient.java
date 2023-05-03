@@ -4,6 +4,7 @@
  */
 package util;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author WildW
  */
-public class Patient {
+public class Patient implements Serializable {
 //    • The first name of the Patient (a String)
 //• The second name of the Patient (a String)
 //• The date of birth of the Patient (a LocalDate)

@@ -1,6 +1,8 @@
 package util;
 
-public class PriorityQueue extends LinkedList{
+import java.io.Serializable;
+
+public class PriorityQueue extends LinkedList implements Serializable {
 
     public PriorityQueue(){}
 

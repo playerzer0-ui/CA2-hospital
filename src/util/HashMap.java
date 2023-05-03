@@ -4,6 +4,7 @@
  */
 package util;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import util.Patient;
 
@@ -11,7 +12,7 @@ import util.Patient;
  *
  * @author WildW
  */
-public class HashMap {
+public class HashMap implements Serializable {
 
     private final int DEFAULT_CAPACITY = 16;
     private int capacity;
@@ -162,7 +163,7 @@ public class HashMap {
         return result;
     }
 
-    private static class Entry {
+    private static class Entry implements Serializable {
 
         private final String key;
         private Patient value;
