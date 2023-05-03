@@ -77,10 +77,19 @@ public class Patient implements Serializable {
         this.appointments = appointments;
     }
 
-
-
     @Override
-    public int hashCode() {
+    public String toString() {
+        return "Patient{"
+                + "firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", birthDate=" + birthDate
+                + ", joinDate=" + joinDate
+                + '}';
+    }
+
+
+@Override
+public int hashCode() {
         int hash = 5;
         hash = 79 * hash + Objects.hashCode(this.firstName);
         hash = 79 * hash + Objects.hashCode(this.lastName);
@@ -89,7 +98,7 @@ public class Patient implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }

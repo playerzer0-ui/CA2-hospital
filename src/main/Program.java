@@ -13,14 +13,21 @@ import util.PriorityQueue;
 public class Program {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //read data
-        FileInputStream file = new FileInputStream("data.bin");
+        File dataFile = new File("data.bin");
         HashMap patients;
-        try {
-            ObjectInputStream bin = new ObjectInputStream(file);
-            patients = (HashMap) bin.readObject();
-        } catch (EOFException e) {
+
+        if (!dataFile.exists()) {
+            dataFile.createNewFile();
             patients = new HashMap();
+        } else {
+            
+            FileInputStream file = new FileInputStream(dataFile);
+            try {
+                ObjectInputStream bin = new ObjectInputStream(file);
+                patients = (HashMap) bin.readObject();
+            } catch (EOFException e) {
+                patients = new HashMap();
+            }
         }
 
         PriorityQueue queue = new PriorityQueue();
@@ -50,7 +57,7 @@ public class Program {
                         }
                         break;
                     case 3:
-                        displayAllPatients(patients);
+                        System.out.println(patients);
                         break;
                     case 4:
                         if (newAppointment(patients, queue)) {
@@ -160,20 +167,6 @@ public class Program {
             return true;
         } else {
             return false;
-        }
-    }
-
-    /**
-     * Show all patients in the hashmap
-     *
-     * @param patients the hashmap of patients
-     * @return all the patient
-     */
-    public static void displayAllPatients(HashMap patients) {
-        String[] keys = patients.getKeys();
-        for (String key : keys) {
-            Patient patient = patients.get(key);
-            System.out.println(patient);
         }
     }
 

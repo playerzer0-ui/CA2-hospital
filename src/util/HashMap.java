@@ -34,9 +34,6 @@ public class HashMap implements Serializable {
         return size;
     }
 
-    /**
-     * @param capacity the initial capacity of the HashMap
-     */
     private int hash(String key) {
         int hash = key.hashCode();
         hash = Math.abs(hash);
