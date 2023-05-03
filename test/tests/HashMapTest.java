@@ -20,23 +20,39 @@ import static org.junit.jupiter.api.Assertions.*;
 public class HashMapTest {
 
     private HashMap hashMap;
+    private final Patient patient = new Patient("John", "Doe",
+            LocalDate.of(1990, 1, 1), LocalDate.now());
 
+    private final Patient patient2 = new Patient("Jane", "Smith",
+            LocalDate.of(1995, 2, 2), LocalDate.now());
+
+    private final Patient patient3 = new Patient("David", "Johnson",
+            LocalDate.of(1985, 3, 3), LocalDate.now());
+
+    /**
+     * Sets up the test environment before each test case.
+     */
     @BeforeEach
     public void setUp() {
         hashMap = new HashMap();
     }
 
+    /**
+     * Tests the put() and get() methods of the HashMap class.
+     */
     @Test
     public void testPutAndGet() {
-        Patient patient = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
         hashMap.put("123", patient);
         Patient retrievedPatient = hashMap.get("123");
         assertEquals(patient, retrievedPatient);
     }
 
+    /**
+     * Tests the put() method with a null key, expecting an
+     * IllegalArgumentException to be thrown.
+     */
     @Test
     public void testPutWithNullKey() {
-        Patient patient = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
         try {
             hashMap.put(null, patient);
             fail("Failed");
@@ -45,98 +61,113 @@ public class HashMapTest {
         }
     }
 
+    /**
+     * Tests the put() and updateValue() methods in the HashMap class.
+     */
     @Test
     public void testPutAndUpdate() {
-        Patient patient1 = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
-        Patient patient2 = new Patient("Jane", "Smith", LocalDate.of(1995, 2, 2), LocalDate.now());
-        hashMap.put("123", patient1);
+
+        hashMap.put("123", patient);
         hashMap.put("123", patient2);
         Patient retrievedPatient = hashMap.get("123");
         assertEquals(patient2, retrievedPatient);
     }
 
+    /**
+     * Tests the get() method with a non-existing key.
+     */
     @Test
     public void testGetNonExistingKey() {
         Patient retrievedPatient = hashMap.get("123");
         assertNull(retrievedPatient);
     }
 
+    /**
+     * Tests the remove() method in the HashMap class.
+     */
     @Test
     public void testRemove() {
-        Patient patient = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
         hashMap.put("123", patient);
         Patient removedPatient = hashMap.remove("123");
         assertEquals(patient, removedPatient);
         assertEquals(0, hashMap.size());
     }
 
+    /**
+     * Tests the remove() method with a non-existing key.
+     */
     @Test
     public void testRemoveNonExistingKey() {
         Patient removedPatient = hashMap.remove("123");
         assertNull(removedPatient);
     }
 
+    /**
+     * Tests the containsKey() method in the HashMap class.
+     */
     @Test
     public void testContainsKey() {
-        Patient patient = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
         hashMap.put("123", patient);
         assertTrue(hashMap.containsKey("123"));
     }
 
-@Test
-public void testContainsKeyNonExistingKey() {
-    assertFalse(hashMap.containsKey("123"));
-}
+    /**
+     * Tests the containsKey() method with a non-existing key.
+     */
+    @Test
+    public void testContainsKeyNonExistingKey() {
+        assertFalse(hashMap.containsKey("123"));
+    }
 
-@Test
-public void testGetKeys() {
-    Patient patient1 = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
-    Patient patient2 = new Patient("Jane", "Smith", LocalDate.of(1995, 2, 2), LocalDate.now());
-    Patient patient3 = new Patient("David", "Johnson", LocalDate.of(1985, 3, 3), LocalDate.now());
-    hashMap.put("123", patient1);
-    hashMap.put("456", patient2);
-    hashMap.put("789", patient3);
+    /**
+     * Tests the getKeys() method in the HashMap class.
+     */
+    @Test
+    public void testGetKeys() {
 
-    String[] keys = hashMap.getKeys();
+        hashMap.put("123", patient);
+        hashMap.put("456", patient2);
+        hashMap.put("789", patient3);
 
-    // Check if the keys array contains the correct keys
-    assertArrayEquals(new String[]{"123", "456", "789"}, keys);
-}
+        String[] keys = hashMap.getKeys();
 
-@Test
-public void testGetValues() {
-    Patient patient1 = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
-    Patient patient2 = new Patient("Jane", "Smith", LocalDate.of(1995, 2, 2), LocalDate.now());
-    Patient patient3 = new Patient("David", "Johnson", LocalDate.of(1985, 3, 3), LocalDate.now());
+        // Check if the keys array contains the correct keys
+        assertArrayEquals(new String[]{"123", "456", "789"}, keys);
+    }
 
-    hashMap.put("123", patient1);
-    hashMap.put("456", patient2);
-    hashMap.put("789", patient3);
+    /**
+     * Tests the getValues() method in the HashMap class.
+     */
+    @Test
+    public void testGetValues() {
 
-    Patient[] values = hashMap.getValues();
+        hashMap.put("123", patient);
+        hashMap.put("456", patient2);
+        hashMap.put("789", patient3);
 
-    // Check if the values array contains the correct patients
-    assertArrayEquals(new Patient[]{patient1, patient2, patient3}, values);
-}
+        Patient[] values = hashMap.getValues();
 
-@Test
-public void testSize() {
-    Patient patient1 = new Patient("John", "Doe", LocalDate.of(1990, 1, 1), LocalDate.now());
-    Patient patient2 = new Patient("Jane", "Smith", LocalDate.of(1995, 2, 2), LocalDate.now());
-    Patient patient3 = new Patient("David", "Johnson", LocalDate.of(1985, 3, 3), LocalDate.now());
+        // Check if the values array contains the correct patients
+        assertArrayEquals(new Patient[]{patient, patient2, patient3}, values);
+    }
 
+    /**
+     * Tests the size() method in the HashMap class.
+     */
+    @Test
+    public void testSize() {
 
-    hashMap.put("123", patient1);
-    hashMap.put("456", patient2);
-    hashMap.put("789", patient3);
+        hashMap.put("123", patient);
+        hashMap.put("456", patient2);
+        hashMap.put("789", patient3);
 
-    // Check if the size of the hashmap is correct
-    assertEquals(3, hashMap.size());
+        // Check if the size of the hashmap is correct
+        assertEquals(3, hashMap.size());
 
-    hashMap.remove("123");
+        hashMap.remove("123");
 
-    // Check if the size is updated
-    assertEquals(2, hashMap.size());
-}
+        // Check if the size is updated
+        assertEquals(2, hashMap.size());
+    }
 
 }

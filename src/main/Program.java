@@ -16,11 +16,10 @@ public class Program {
         //read data
         FileInputStream file = new FileInputStream("data.bin");
         HashMap patients;
-        try{
+        try {
             ObjectInputStream bin = new ObjectInputStream(file);
             patients = (HashMap) bin.readObject();
-        }
-        catch(EOFException e){
+        } catch (EOFException e) {
             patients = new HashMap();
         }
 
@@ -29,63 +28,68 @@ public class Program {
         int choice;
         boolean flag = false;
 
-
         while (!flag) {
             menu();
-            choice = sc.nextInt();
+            if (sc.hasNextInt()) {
+                choice = sc.nextInt();
+                sc.nextLine();
 
-            switch (choice) {
-                case 1:
-                    if (addPatient(patients)) {
-                        System.out.println("patient added successfully!");
-                    } else {
-                        System.out.println("patient failed to be added");
-                    }
-                    break;
-                case 2:
-                    if (deletePatient(patients)) {
-                        System.out.println("patient removed successfully!");
-                    } else {
-                        System.out.println("patient failed to be removed");
-                    }
-                    break;
-                case 3:
-                    System.out.println(patients);
-                    break;
-                case 4:
-                    if (newAppointment(patients, queue)) {
-                        System.out.println("appointment added successfully!");
-                    } else {
-                        System.out.println("appointment failed to create");
-                    }
-                    break;
-                case 5:
-                    Appointment next = queue.peek();
-                    if(next != null){
-                        System.out.println("calling next patient: " + next.getFirstName() + " " + next.getLastName());
-                        queue.remove();
-                    }
-                    else{
-                        System.out.println("no patients to call in");
-                    }
-                    break;
-                case 6:
-                    System.out.println(queue);
-                    break;
-                case 7:
-                    saveData(patients);
-                    flag = true;
-                    break;
-                default:
-                    System.out.println("invalid command");
-                    break;
+                switch (choice) {
+                    case 1:
+                        if (addPatient(patients)) {
+                            System.out.println("patient added successfully!");
+                        } else {
+                            System.out.println("patient failed to be added");
+                        }
+                        break;
+                    case 2:
+                        if (deletePatient(patients)) {
+                            System.out.println("patient removed successfully!");
+                        } else {
+                            System.out.println("patient failed to be removed");
+                        }
+                        break;
+                    case 3:
+                        System.out.println(patients);
+                        break;
+                    case 4:
+                        if (newAppointment(patients, queue)) {
+                            System.out.println("appointment added successfully!");
+                        } else {
+                            System.out.println("appointment failed to create");
+                        }
+                        break;
+                    case 5:
+                        Appointment next = queue.peek();
+                        if (next != null) {
+                            System.out.println("calling next patient: " + next.getFirstName() + " " + next.getLastName());
+                            queue.remove();
+                        } else {
+                            System.out.println("no patients to call in");
+                        }
+                        break;
+                    case 6:
+                        System.out.println(queue);
+                        break;
+                    case 7:
+                        saveData(patients);
+                        flag = true;
+                        break;
+                    default:
+                        System.out.println("invalid command");
+                        break;
+                }
+            } else {
+                String invalidInput = sc.nextLine();
+                System.out.println("Invalid input: " + invalidInput);
             }
-        }
 
+        }
     }
 
     /**
      * save data to binary file
+     *
      * @param patients the hashmap of patients
      * @throws IOException if something went wrong
      */
@@ -112,6 +116,7 @@ public class Program {
 
     /**
      * add a patient to the hashmap
+     *
      * @param patients the hashmap of patients
      * @return true or false, if added or not
      */
@@ -141,6 +146,7 @@ public class Program {
 
     /**
      * remove a patient from the hashmap
+     *
      * @param patients the hashmap of patients
      * @return true or false, if added or not
      */
@@ -158,12 +164,27 @@ public class Program {
     }
 
     /**
+     * Show all patients in the hashmap
+     *
+     * @param patients the hashmap of patients
+     * @return all the patient
+     */
+    public void displayAllPatients(HashMap patients) {
+        String[] keys = patients.getKeys();
+        for (String key : keys) {
+            Patient patient = patients.get(key);
+            System.out.println(patient);
+        }
+    }
+
+    /**
      * add a new appointment to the queue, patient is found in queue
+     *
      * @param patients the hashmap of patients
      * @param queue the queue of appointments
      * @return true or false, if added or not
      */
-    public static boolean newAppointment(HashMap patients, PriorityQueue queue){
+    public static boolean newAppointment(HashMap patients, PriorityQueue queue) {
         Scanner sc = new Scanner(System.in);
         Random rg = new Random();
 
@@ -171,7 +192,7 @@ public class Program {
         String firstName = sc.nextLine();
 
         Patient patient = patients.get(firstName);
-        if(patient != null){
+        if (patient != null) {
             System.out.println("what is the issue: ");
             String issue = sc.nextLine();
             System.out.println("enter doctor name: ");
@@ -181,8 +202,7 @@ public class Program {
                     patient.getFirstName(), patient.getLastName(),
                     patient.getBirthDate(), issue, patient.getJoinDate(), doctor));
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }

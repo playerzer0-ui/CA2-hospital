@@ -6,7 +6,6 @@ package util;
 
 import java.io.Serializable;
 import java.util.LinkedList;
-import util.Patient;
 
 /**
  *
@@ -35,6 +34,9 @@ public class HashMap implements Serializable {
         return size;
     }
 
+    /**
+     * @param capacity the initial capacity of the HashMap
+     */
     private int hash(String key) {
         int hash = key.hashCode();
         hash = Math.abs(hash);
@@ -42,6 +44,13 @@ public class HashMap implements Serializable {
         return hash;
     }
 
+    /**
+     * @param key the key with value is to be added
+     * @param patient the patient value to be added
+     * @return the previous value if the key is updated, or null if there was no
+     * mapping for the key
+     * @throws IllegalArgumentException if the key or value is null
+     */
     public Patient put(String key, Patient patient) {
         if (key == null || patient == null) {
             throw new IllegalArgumentException("Null fields not permitted");
@@ -70,6 +79,14 @@ public class HashMap implements Serializable {
         }
     }
 
+    /**
+     * Returns the value to the specified key, or null if the HashMap contains
+     * nothing.
+     *
+     * @param key the key value that want to be returned
+     * @return the value of the key that is mapped, or null if this HashMap
+     * contains nothing
+     */
     public Patient get(String key) {
         int slot = hash(key);
         if (table[slot] != null) {
@@ -84,6 +101,13 @@ public class HashMap implements Serializable {
         }
     }
 
+    /**
+     * Removes from the specified key input.
+     *
+     * @param key the key that wanted to be remove from the HashMap
+     * @return the previous value of the key that is getting remove, or null if
+     * there was no key
+     */
     public Patient remove(String key) {
         int slot = hash(key);
         if (table[slot] != null) {
@@ -101,6 +125,12 @@ public class HashMap implements Serializable {
         }
     }
 
+    /**
+     * Returns true if this HashMap contains the key entered.
+     *
+     * @param key a string key
+     * @return true if this HashMap contains a the key, false otherwise
+     */
     public boolean containsKey(String key) {
         int slot = hash(key);
         if (table[slot] != null) {
@@ -113,6 +143,9 @@ public class HashMap implements Serializable {
         return false;
     }
 
+    /**
+     * @return an array with all the keys present in the HashMap
+     */
     public String[] getKeys() {
         String[] keys = new String[size];
         int index = 0;
@@ -126,6 +159,9 @@ public class HashMap implements Serializable {
         return keys;
     }
 
+    /**
+     * @return an array containing with all the values present in the HashMap
+     */
     public Patient[] getValues() {
         Patient[] values = new Patient[size];
         int index = 0;
@@ -150,16 +186,14 @@ public class HashMap implements Serializable {
                     result += e.getKey() + "=" + e.getValue();
                     index++;
 
-                    if(index != size){
+                    if (index != size) {
                         result += ", ";
-                    }
-                    else{
+                    } else {
                         result += "}";
                     }
                 }
             }
         }
-//ending with comma dont know how to fix
         return result;
     }
 

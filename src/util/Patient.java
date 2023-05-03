@@ -77,6 +77,8 @@ public class Patient implements Serializable {
         this.appointments = appointments;
     }
 
+
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -106,7 +108,5 @@ public class Patient implements Serializable {
         }
         return Objects.equals(this.birthDate, other.birthDate);
     }
-    
-    
 
 }
