@@ -25,62 +25,123 @@ public class Appointment implements Serializable {
         this.doctor = doctor;
     }
 
+    /**
+     * get the first name
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * set the first name
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * get the last name
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * set the last name
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * get the date of birth
+     * @return the date of birth
+     */
     public LocalDate getDoB() {
         return doB;
     }
 
+    /**
+     * set the date of birth
+     * @param doB the date of birth
+     */
     public void setDoB(LocalDate doB) {
         this.doB = doB;
     }
 
+    /**
+     * get the issue
+     * @return the issue
+     */
     public String getIssue() {
         return issue;
     }
 
+    /**
+     * set the issue
+     * @param issue the issue
+     */
     public void setIssue(String issue) {
         this.issue = issue;
     }
 
+    /**
+     * get the date
+     * @return the date
+     */
     public LocalDate getDate() {
         return date;
     }
 
+    /**
+     * set the date
+     * @param date the date
+     */
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
+    /**
+     * get the level
+     * @return the level
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * set the level
+     * @param level the level
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
+    /**
+     * get the doctor
+     * @return the doctor
+     */
     public String getDoctor() {
         return doctor;
     }
 
+    /**
+     * set the doctor
+     * @param doctor the doctor
+     */
     public void setDoctor(String doctor) {
         this.doctor = doctor;
     }
 
+    /**
+     * checks if two objects are identical
+     * @param o the object
+     * @return true or false, if equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,6 +156,10 @@ public class Appointment implements Serializable {
         return date.equals(that.date);
     }
 
+    /**
+     * create hashcode for the attributes required in equals
+     * @return hashcode
+     */
     @Override
     public int hashCode() {
         int result = firstName.hashCode();
@@ -105,6 +170,10 @@ public class Appointment implements Serializable {
         return result;
     }
 
+    /**
+     * display appointment in string format
+     * @return string of class
+     */
     @Override
     public String toString() {
         return "Appointment{" +
