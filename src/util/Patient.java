@@ -14,11 +14,6 @@ import java.util.Objects;
  * @author WildW
  */
 public class Patient implements Serializable {
-//    • The first name of the Patient (a String)
-//• The second name of the Patient (a String)
-//• The date of birth of the Patient (a LocalDate)
-//• The date they joined the practice (a LocalDate)
-//• The appointments associated with the Patient (an Appointment LinkedList).
 
     private String firstName;
     private String lastName;
@@ -37,59 +32,134 @@ public class Patient implements Serializable {
     public Patient() {
     }
 
+    /**
+     * Gets the first name of the patient.
+     *
+     * @return the first name of the patient
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets the first name of the patient.
+     *
+     * @param firstName the first name of the patient
+     * @throws IllegalArgumentException if the first name is null or empty
+     */
     public void setFirstName(String firstName) {
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be null or empty.");
+        }
         this.firstName = firstName;
     }
 
+    /**
+     * Gets the last name of the patient.
+     *
+     * @return the last name of the patient
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets the last name of the patient.
+     *
+     * @param lastName the last name of the patient
+     * @throws IllegalArgumentException if the last name is null or empty
+     */
     public void setLastName(String lastName) {
+        if (lastName == null || lastName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Last name cannot be null or empty.");
+        }
         this.lastName = lastName;
     }
 
+    /**
+     * Gets the birth date of the patient.
+     *
+     * @return the birth date of the patient
+     */
     public LocalDate getBirthDate() {
         return birthDate;
     }
 
+    /**
+     * Sets the birth date of the patient.
+     *
+     * @param birthDate the birth date of the patient
+     * @throws IllegalArgumentException if the birth date is null
+     */
     public void setBirthDate(LocalDate birthDate) {
+        if (birthDate == null) {
+            throw new IllegalArgumentException("Birth date cannot be null.");
+        }
         this.birthDate = birthDate;
     }
 
+    /**
+     * Gets the join date of the patient.
+     *
+     * @return the join date of the patient
+     */
     public LocalDate getJoinDate() {
         return joinDate;
     }
 
+    /**
+     * Sets the join date of the patient.
+     *
+     * @param joinDate the join date of the patient
+     * @throws IllegalArgumentException if the join date is null
+     */
     public void setJoinDate(LocalDate joinDate) {
+        if (joinDate == null) {
+            throw new IllegalArgumentException("Join date cannot be null.");
+        }
         this.joinDate = joinDate;
     }
 
+    /**
+     * Gets the list of appointments for the patient.
+     *
+     * @return the list of appointments for the patient
+     */
     public LinkedList getAppointments() {
         return appointments;
     }
 
+    /**
+     * Sets the list of appointments for the patient.
+     *
+     * @param appointments the list of appointments for the patient
+     * @throws IllegalArgumentException if the appointments list is null
+     */
     public void setAppointments(LinkedList appointments) {
+        if (appointments == null) {
+            throw new IllegalArgumentException("Appointments cannot be null.");
+        }
         this.appointments = appointments;
     }
 
+    /**
+     * Returns a string of the Patient object.
+     *
+     * @return a string of the Patient object
+     */
     @Override
     public String toString() {
-        return "Patient{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDate=" + birthDate +
-                ", joinDate=" + joinDate +
-                ", appointments=" + appointments +
-                '}';
+        return "Patient{"
+                + "firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", birthDate=" + birthDate
+                + ", joinDate=" + joinDate
+                + ", appointments=" + appointments
+                + '}';
     }
 
     @Override
-public int hashCode() {
+    public int hashCode() {
         int hash = 5;
         hash = 79 * hash + Objects.hashCode(this.firstName);
         hash = 79 * hash + Objects.hashCode(this.lastName);
@@ -97,8 +167,15 @@ public int hashCode() {
         return hash;
     }
 
+    /**
+     * Checks whether the Patient object is equal to another object.
+     *
+     * @param obj the object to compare with
+     * @return true if the objects are equal, false otherwise
+     */
+
     @Override
-public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }

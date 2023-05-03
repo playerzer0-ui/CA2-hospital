@@ -18,9 +18,6 @@ public class HashMap implements Serializable {
     private int size;
     private LinkedList<Entry>[] table;
 
-    /**
-     * Constructs a HashMap with the default capacity.
-     */
     public HashMap() {
         capacity = DEFAULT_CAPACITY;
         size = 0;
@@ -28,11 +25,16 @@ public class HashMap implements Serializable {
     }
 
     /**
-     * Constructs a HashMap with the input capacity.
+     * Constructs a HashMap with the specified capacity.
      *
      * @param capacity the initial capacity of the HashMap
+     * @throws IllegalArgumentException if the capacity is less than or equal to
+     * zero
      */
     public HashMap(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Capacity must be greater than zero");
+        }
         this.capacity = capacity;
         size = 0;
         table = new LinkedList[capacity];
@@ -46,10 +48,14 @@ public class HashMap implements Serializable {
     }
 
     /**
-     * @param key the key
-     * @return the hash code for the key
+     * @param key the key for which to compute the hash code
+     * @return the hash code of the key
+     * @throws IllegalArgumentException if the key is null
      */
     private int hash(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Null key is not allow");
+        }
         int hash = key.hashCode();
         hash = Math.abs(hash);
         hash = hash % table.length;
@@ -65,7 +71,7 @@ public class HashMap implements Serializable {
      */
     public Patient put(String key, Patient patient) {
         if (key == null || patient == null) {
-            throw new IllegalArgumentException("Null fields not permitted");
+            throw new IllegalArgumentException("Null are not allow");
         }
         int slot = hash(key);
 
@@ -107,10 +113,8 @@ public class HashMap implements Serializable {
                     return e.value;
                 }
             }
-            return null;
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -138,12 +142,16 @@ public class HashMap implements Serializable {
     }
 
     /**
-     * Returns true if this HashMap contains the key entered.
+     * Checks if the HashMap contains the input key.
      *
-     * @param key a string key
-     * @return true if this HashMap contains a the key, false otherwise
+     * @param key the key to check if its in the HashMap
+     * @return true if the HashMap contains the key, false otherwise
+     * @throws IllegalArgumentException if the key is null
      */
     public boolean containsKey(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Null key is not allow");
+        }
         int slot = hash(key);
         if (table[slot] != null) {
             for (Entry e : table[slot]) {
@@ -187,6 +195,12 @@ public class HashMap implements Serializable {
         return values;
     }
 
+    /**
+     * Overrides the default toString() method.
+     *
+     * @return A string of the HashMap in the format "{key1=value1, key2=value2,
+     * ...}". If the HashMap is empty, it returns an empty curly braces "{}".
+     */
     @Override
     public String toString() {
         if (size == 0) {
@@ -222,14 +236,26 @@ public class HashMap implements Serializable {
             this.value = value;
         }
 
+        /**
+         * @return The key of the entry.
+         */
         public String getKey() {
             return key;
         }
 
+        /**
+         * @return The value that have something to do with the key.
+         */
         public Patient getValue() {
             return value;
         }
 
+        /**
+         * Updates the value.
+         *
+         * @param newValue The new value that have something to do with the key.
+         * @return The old value that was replaced.
+         */
         public Patient updateValue(Patient newValue) {
             Patient oldValue = value;
             this.value = newValue;
