@@ -13,14 +13,10 @@ import util.PriorityQueue;
 public class Program {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        File dataFile = new File("data.bin");
         HashMap patients;
 
-        if (!dataFile.exists()) {
-            dataFile.createNewFile();
-            patients = new HashMap();
-        } else {
-            
+        File dataFile = new File("data.bin");
+        if(dataFile.exists()){
             FileInputStream file = new FileInputStream(dataFile);
             try {
                 ObjectInputStream bin = new ObjectInputStream(file);
@@ -28,6 +24,9 @@ public class Program {
             } catch (EOFException e) {
                 patients = new HashMap();
             }
+        }
+        else{
+            patients = new HashMap();
         }
 
         PriorityQueue queue = new PriorityQueue();

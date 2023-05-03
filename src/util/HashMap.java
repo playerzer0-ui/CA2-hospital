@@ -174,6 +174,9 @@ public class HashMap implements Serializable {
 
     @Override
     public String toString() {
+        if(size == 0){
+            return "{}";
+        }
         String result = "{";
         int index = 0;
 
