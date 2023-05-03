@@ -14,16 +14,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PriorityQueueTest {
 
-    private final Appointment a = new Appointment(1, "john", "doe",
+    private final Appointment queueRecord1 = new Appointment(1, "john", "doe",
             LocalDate.parse("2003-02-02"),
             "broke", LocalDate.parse("2003-03-04"), "doc");
-    private final Appointment b = new Appointment(2, "jane", "willow",
+    private final Appointment queueRecord2 = new Appointment(2, "jane", "willow",
             LocalDate.parse("2003-02-10"),
             "broken knee", LocalDate.parse("2003-04-04"), "kal'tsit");
-    private final Appointment c = new Appointment(9, "bob", "marley",
+    private final Appointment queueRecord3 = new Appointment(9, "bob", "marley",
             LocalDate.parse("2003-02-04"),
             "dying", LocalDate.parse("2003-03-20"), "doctor");
-    private final Appointment d = new Appointment(10, "among", "us",
+    private final Appointment queueRecord4 = new Appointment(10, "among", "us",
             LocalDate.parse("2003-02-02"),
             "imposter", LocalDate.parse("2001-03-04"), "crew");
 
@@ -33,10 +33,10 @@ class PriorityQueueTest {
     @Test
     public void add_normal() {
         PriorityQueue p = new PriorityQueue();
-        p.add(b);
-        p.add(c);
-        p.add(a);
-        p.add(d);
+        p.add(queueRecord2);
+        p.add(queueRecord3);
+        p.add(queueRecord1);
+        p.add(queueRecord4);
         int exp = 4;
         assertEquals(exp, p.size());
         String ex = "[Appointment{level=1, firstName='john', lastName='doe', doB=2003-02-02, issue='broke', "
@@ -54,10 +54,10 @@ class PriorityQueueTest {
     @Test
     public void remove_normal() {
         PriorityQueue p = new PriorityQueue();
-        p.add(b);
-        p.add(c);
-        p.add(a);
-        p.add(d);
+        p.add(queueRecord2);
+        p.add(queueRecord3);
+        p.add(queueRecord1);
+        p.add(queueRecord4);
         assertTrue(p.remove());
         assertEquals(3, p.size());
     }
@@ -77,11 +77,11 @@ class PriorityQueueTest {
     @Test
     public void peek_normal() {
         PriorityQueue p = new PriorityQueue();
-        p.add(b);
-        p.add(c);
-        p.add(a);
-        p.add(d);
-        assertEquals(a, p.peek());
+        p.add(queueRecord2);
+        p.add(queueRecord3);
+        p.add(queueRecord1);
+        p.add(queueRecord4);
+        assertEquals(queueRecord1, p.peek());
     }
 
     /**
@@ -99,10 +99,10 @@ class PriorityQueueTest {
     @Test
     public void empty_normal() {
         PriorityQueue p = new PriorityQueue();
-        p.add(b);
-        p.add(c);
-        p.add(a);
-        p.add(d);
+        p.add(queueRecord2);
+        p.add(queueRecord3);
+        p.add(queueRecord1);
+        p.add(queueRecord4);
         p.empty();
         assertEquals(0, p.size());
         assertEquals("[]", p.toString());
