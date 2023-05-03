@@ -248,7 +248,7 @@ public class LinkedList implements Serializable {
         return output;
     }
 
-    protected static class Node {
+    protected static class Node implements Serializable {
         protected Appointment data;
         protected Node next;
 

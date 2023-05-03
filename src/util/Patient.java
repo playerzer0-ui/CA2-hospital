@@ -79,16 +79,16 @@ public class Patient implements Serializable {
 
     @Override
     public String toString() {
-        return "Patient{"
-                + "firstName='" + firstName + '\''
-                + ", lastName='" + lastName + '\''
-                + ", birthDate=" + birthDate
-                + ", joinDate=" + joinDate
-                + '}';
+        return "Patient{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", joinDate=" + joinDate +
+                ", appointments=" + appointments +
+                '}';
     }
 
-
-@Override
+    @Override
 public int hashCode() {
         int hash = 5;
         hash = 79 * hash + Objects.hashCode(this.firstName);

@@ -190,9 +190,11 @@ public class Program {
             System.out.println("enter doctor name: ");
             String doctor = sc.nextLine();
 
-            queue.add(new Appointment(rg.nextInt(1, 6),
+            Appointment appointment = new Appointment(rg.nextInt(1, 6),
                     patient.getFirstName(), patient.getLastName(),
-                    patient.getBirthDate(), issue, patient.getJoinDate(), doctor));
+                    patient.getBirthDate(), issue, patient.getJoinDate(), doctor);
+            queue.add(appointment);
+            patients.get(firstName).getAppointments().add(appointment);
             return true;
         } else {
             return false;
