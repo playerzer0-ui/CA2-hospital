@@ -38,6 +38,9 @@ public class Appointment implements Serializable {
      * @param firstName the first name
      */
     public void setFirstName(String firstName) {
+        if(firstName == null){
+            throw new IllegalArgumentException();
+        }
         this.firstName = firstName;
     }
 
@@ -54,6 +57,9 @@ public class Appointment implements Serializable {
      * @param lastName the last name
      */
     public void setLastName(String lastName) {
+        if(lastName == null){
+            throw new IllegalArgumentException();
+        }
         this.lastName = lastName;
     }
 
@@ -70,6 +76,9 @@ public class Appointment implements Serializable {
      * @param doB the date of birth
      */
     public void setDoB(LocalDate doB) {
+        if(doB == null){
+            throw new IllegalArgumentException();
+        }
         this.doB = doB;
     }
 
@@ -86,6 +95,9 @@ public class Appointment implements Serializable {
      * @param issue the issue
      */
     public void setIssue(String issue) {
+        if(issue == null){
+            throw new IllegalArgumentException();
+        }
         this.issue = issue;
     }
 
@@ -102,6 +114,9 @@ public class Appointment implements Serializable {
      * @param date the date
      */
     public void setDate(LocalDate date) {
+        if(date == null){
+            throw new IllegalArgumentException();
+        }
         this.date = date;
     }
 
@@ -118,6 +133,9 @@ public class Appointment implements Serializable {
      * @param level the level
      */
     public void setLevel(int level) {
+        if(level <= 0){
+            throw new IllegalArgumentException();
+        }
         this.level = level;
     }
 
@@ -134,6 +152,9 @@ public class Appointment implements Serializable {
      * @param doctor the doctor
      */
     public void setDoctor(String doctor) {
+        if(doctor == null){
+            throw new IllegalArgumentException();
+        }
         this.doctor = doctor;
     }
 
